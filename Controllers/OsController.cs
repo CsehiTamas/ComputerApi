@@ -17,7 +17,7 @@ namespace ComputerApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OSystem>> Post(CreateOsDto createOsDto) 
+        public async Task<ActionResult<OSystem>> Post(CreateOsDto createOsDto)
         {
             var os = new OSystem
             {
@@ -29,7 +29,7 @@ namespace ComputerApi.Controllers
             {
                 await computerContext.Os.AddAsync(os);
                 await computerContext.SaveChangesAsync();
-                return StatusCode(201, os); 
+                return StatusCode(201, os);
             }
             return Ok();
         }
@@ -40,7 +40,7 @@ namespace ComputerApi.Controllers
             return Ok(await computerContext.Os.ToListAsync());
         }
 
-      
+
         [HttpGet]
         public async Task<ActionResult<OSystem>> GetById(Guid id)
         {
@@ -49,7 +49,24 @@ namespace ComputerApi.Controllers
             {
                 return Ok(os);
             }
-            return NotFound(new { message = "Nincs találat."});
+            return NotFound(new { message = "Nincs találat." });
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<OSystem>> Put(UpdateOsDto updateOsDto, Guid id)
+        {
+            var existingOs = await computerContext.Os.FirstOrDefaultAsync(o => o.Id == id);
+
+            if (existingOs != null)
+            {
+                existingOs.Name = updateOsDto.Name;
+                computerContext.Os.Update(existingOs);
+                await computerContext.SaveChangesAsync();
+                return Ok(existingOs);
+            }
+            return NotFound(new { message = "Nincs találat." });
+        }
+
+
     }
 }
