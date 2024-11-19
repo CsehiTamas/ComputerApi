@@ -1,6 +1,7 @@
 ﻿using ComputerApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComputerApi.Controllers
 {
@@ -32,5 +33,13 @@ namespace ComputerApi.Controllers
             }
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<ActionResult<OSystem>> Get()
+        {
+            return Ok(await computerContext.Os.ToListAsync());
+        }
+
+
     }
 }
