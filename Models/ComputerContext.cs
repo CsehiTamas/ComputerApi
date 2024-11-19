@@ -17,10 +17,8 @@ public partial class ComputerContext : DbContext
 
     public virtual DbSet<Comp> Comps { get; set; }
 
-    public virtual DbSet<O> Os { get; set; }
+    public virtual DbSet<OSystem> Os { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySQL("server=localhost;database=computer;user=root;password=;sslmode=none;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,7 +51,7 @@ public partial class ComputerContext : DbContext
                 .HasConstraintName("comp_ibfk_1");
         });
 
-        modelBuilder.Entity<O>(entity =>
+        modelBuilder.Entity<OSystem>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
