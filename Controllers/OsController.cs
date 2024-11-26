@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ComputerApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("osystem")]
     [ApiController]
     public class OsController : ControllerBase
     {
@@ -78,6 +78,6 @@ namespace ComputerApi.Controllers
                 return Ok(new { message = "Sikeres törlés." });
             }
             return NotFound(new { message = "Nincs találat." });
-        }
+        }   
     }
 }
