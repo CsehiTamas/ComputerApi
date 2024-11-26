@@ -78,6 +78,13 @@ namespace ComputerApi.Controllers
                 return Ok(new { message = "Sikeres törlés." });
             }
             return NotFound(new { message = "Nincs találat." });
-        }   
+        }
+        [HttpGet("withAllComputer")]   
+        public async Task<ActionResult<OSystem>> GetWithComputer()
+        {
+
+            return Ok(await computerContext.Os.Include(os => os.Comps).ToListAsync());
+        }
+        
     }
 }
